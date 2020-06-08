@@ -30,12 +30,12 @@ for itime in range(ntime):
         while i < 1000:
             try:
                 a[i] = DAQC.getADC(0, theSense)
-                i = i + 1
             except:
                 out = open(file + '.except', 'w')
                 import traceback
                 traceback.print_exc(file=out)
                 out.close()
+            i = i + 1
 
         max = 0.
         secondMax = 0.
