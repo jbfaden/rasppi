@@ -25,11 +25,19 @@ for itime in range(ntime):
         if not os.path.exists(ff):
             os.makedirs(ff)
 
-        a = [None] * 1000
+        max = 0.
+        secondMax = 0.
+        
         i = 0
         while i < 1000:
             try:
-                a[i] = DAQC.getADC(0, theSense)
+                a = DAQC.getADC(0, theSense)
+                if a>secondMax:
+                    if a>max:
+                        secondMax = max
+                        max = a
+                    else:
+                        secondMax= a
             except:
                 out = open(file + '.except', 'w')
                 import traceback
@@ -37,14 +45,6 @@ for itime in range(ntime):
                 out.close()
             i = i + 1
 
-        max = 0.
-        secondMax = 0.
-        for i in xrange(1000):
-            if a[i] > max:
-                secondMax = max
-                max = a[i]
-            elif a[i] > secondMax:
-                secondMax = a[i]
         rms = 0.707 * secondMax
 
         tme = datetime.datetime.utcnow().isoformat()[0:19]
