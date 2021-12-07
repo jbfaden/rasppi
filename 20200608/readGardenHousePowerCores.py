@@ -1,6 +1,12 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
+# This reads the sensor 1000 times to sample the 60Hz A/C waveform (at
+# maybe 100-200Hz), then the maximum value is used to interpret the 
+# amplitude of the waveform.  I found that I could get a spurious point,
+# so the second highest value is used as a more robust measure of the
+# amplitude.
+
 import piplates.DAQCplate as DAQC
 
 import datetime
